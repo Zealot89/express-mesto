@@ -4,7 +4,7 @@ const cardsRouter = require('express').Router();
 
 const cards = path.join('./data/cards.json');
 
-cardsRouter.use('/cards', (req, res) => {
+cardsRouter.get('/cards', (req, res) => {
     fs.readFile(cards, { encoding: 'utf8' }, (e, data) => {
         const dataCards = JSON.parse(data);
         if (e) {

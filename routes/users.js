@@ -16,7 +16,7 @@ userRouter.get('/users', (req, res) => {
 
 });
 
-userRouter.use('/users/:_id', (req, res) => {
+userRouter.get('/users/:_id', (req, res) => {
     fs.readFile(users, { encoding: 'utf8' }, (e, data) => {
         const dataUser = JSON.parse(data);
         if (e) {
