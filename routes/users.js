@@ -32,23 +32,3 @@ userRouter.use('/users/:_id', (req, res) => {
     })
 })
 module.exports = userRouter;
-
-
-
-
-
-
-
-
-//usersRouter.get('/users', (req, res) => {
-//    fs.readFile(usersFile, { encoding: 'utf8' }, (err, data) => {
-//      const newData = JSON.parse(data);
-//  
-//      if (err) {
-//        res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
-//        return;
-//      }
-//  
-//      res.send(newData);
-//    });
-//  });
