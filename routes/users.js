@@ -8,7 +8,7 @@ userRouter.get('/users', (req, res) => {
     fs.readFile(users, { encoding: 'utf8' }, (e, data) => {
         const dataUser = JSON.parse(data);
         if (e) {
-            console.log('Ошибка в юзерРоутер');
+            res.status(404).send({ message: "Запрашиваемый ресурс не найден" });
             return;
         }
         res.send(dataUser);

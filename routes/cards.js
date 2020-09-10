@@ -8,7 +8,7 @@ cardsRouter.get('/cards', (req, res) => {
     fs.readFile(cards, { encoding: 'utf8' }, (e, data) => {
         const dataCards = JSON.parse(data);
         if (e) {
-            console.log('Ошибка в роутере Кардс');
+            res.status(404).send({ message: "Запрашиваемый ресурс не найден" });
             return
         }
         res.send(dataCards);
