@@ -1,35 +1,13 @@
-/* eslint-disable linebreak-style */
 /* eslint-disable no-underscore-dangle */
-const fs = require('fs');
-const path = require('path');
 const userRouter = require('express').Router();
+const {
+  getUser,
+  getUserById,
+  createUser,
+} = require('../controllers/users');
 
-const users = path.join('./data/users.json');
+userRouter.get('/users', getUser);
+userRouter.get('/users/:_id', getUserById);
+userRouter.post('/', createUser);
 
-userRouter.get('/users', (req, res) => {
-  fs.readFile(users, { encoding: 'utf8' }, (e, data) => {
-    const dataUser = JSON.parse(data);
-    if (e) {
-      res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
-      return;
-    }
-    res.send(dataUser);
-  });
-});
-
-userRouter.get('/users/:_id', (req, res) => {
-  fs.readFile(users, { encoding: 'utf8' }, (e, data) => {
-    const dataUser = JSON.parse(data);
-    if (e) {
-      res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
-      return;
-    }
-    const userById = dataUser.find((i) => i._id === req.params._id);
-    if (!userById) {
-      res.status(404).send({ message: 'Нет пользователя с таким id' });
-      return;
-    }
-    res.send(userById);
-  });
-});
 module.exports = userRouter;
