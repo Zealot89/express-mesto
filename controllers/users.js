@@ -9,17 +9,18 @@ const getUser = (req, res) => {
     .catch((err) => {
       const ERROR_CODE = 404;
 
-      if (err.name === 'CastError') res.status(ERROR_CODE).send({ message: 'Запрашиваемый ресурс не найден' });
+      if (err.name === 'CastError') { res.status(ERROR_CODE).send({ message: 'Запрашиваемый ресурс не найден' }); } else { res.status(500).send({ message: 'Ошибка на сервере' }); }
     });
 };
 
 const getUserById = (req, res) => {
   User.findById(req.params._id)
+    .orFail(new Error('Not Found'))
     .then((data) => { res.status(200).send({ data }); })
     .catch((err) => {
-      const ERROR_CODE = 404;
+      const ERROR_CODE = 400;
 
-      if (err.name === 'CastError') res.status(ERROR_CODE).send({ message: 'пользователь не найден' });
+      if (err.name === 'CastError' || err.message === 'Not Found') { res.status(ERROR_CODE).send({ message: 'пользователь не найден' }); } else { res.status(500).send({ message: 'Ошибка на сервере' }); }
     });
 };
 
@@ -32,7 +33,7 @@ const createUser = (req, res) => {
     .catch((err) => {
       const ERROR_CODE = 400;
 
-      if (err.name === 'CastError') res.status(ERROR_CODE).send({ message: 'переданы некорректные данные в метод создания пользователя' });
+      if (err.name === 'CastError') { res.status(ERROR_CODE).send({ message: 'переданы некорректные данные в метод создания пользователя' }); } else { res.status(500).send({ message: 'Ошибка на сервере' }); }
     });
 };
 

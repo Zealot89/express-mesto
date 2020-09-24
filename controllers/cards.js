@@ -28,9 +28,12 @@ const addCard = (req, res) => {
 
 const deleteCard = (req, res) => {
   Card.findByIdAndRemove(req.params.id)
+    .orFail(new Error('Not Found'))
     .then((card) => res.send({ data: card }))
     .catch((err) => {
-      res.status(400).send({ message: 'переданы некорректные данные в метод удаления карточки' });
+      const ERROR_CODE = 400;
+
+      if (err.name === 'CastError' || err.message === 'Not Found') { res.status(ERROR_CODE).send({ message: 'переданы некорректные данные в метод удаления карточки' }); } else { res.status(500).send({ message: 'Ошибка на сервере' }); }
     });
 };
 
