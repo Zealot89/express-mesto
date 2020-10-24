@@ -1,9 +1,10 @@
 /* eslint-disable linebreak-style */
 require('dotenv').config();
 const { errors } = require('celebrate');
-
+const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
+
 // const { celebrate, Joi } = require('celebrate');
 const bodyParser = require('body-parser');
 const rateLimit = require('express-rate-limit');
@@ -37,6 +38,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 //
 //  next();
 // });
+app.use(cors());
 app.use(limit);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
