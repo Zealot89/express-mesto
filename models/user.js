@@ -8,17 +8,23 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 2,
     maxlength: 30,
+    default: 'Жак-Ив Кусто',
+
   },
   about: {
     type: String,
     required: true,
     minlength: 2,
     maxlength: 30,
+    default: 'Исследователь океана',
   },
   avatar: {
     type: String,
     required: true,
+
+    default: 'https://img.joinfo.ua/i/2019/06/o/5cffa39f10702.jpg',
     minlength: 2,
+
     validate: {
       validator(link) {
         return /https?:\/\/(www\.)?[a-zA-Z0-9-@#$%:._=+~&*\\]{1,333}\.[0-9A-Za-z]{1,4}\b([a-zA-Z0-9-@#$%:._=//()+~&*\\]*)/.test(
