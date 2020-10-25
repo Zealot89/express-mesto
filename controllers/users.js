@@ -139,16 +139,16 @@ const updateUserAvatar = (req, res, next) => {
 function login(req, res, next) {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password).then((user) => {
-    // res.send({ token: jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' }) });
-    if (!user) {
-      throw new NotFoundError('Пользователь с таким Id не найден');
-    }
-    const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
-    res.cookie('jwt', token, {
-      maxAge: 3600000 * 24 * 7,
-      httpOnly: true,
-      sameSite: true,
-    }).send({ message: 'Авторизация прошла успешно!' });
+    res.send({ token: jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' }) });
+    // if (!user) {
+    //  throw new NotFoundError('Пользователь с таким Id не найден');
+    // }
+    // const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
+    // res.cookie('jwt', token, {
+    //  maxAge: 3600000 * 24 * 7,
+    //  httpOnly: true,
+    //  sameSite: true,
+    // }).send({ message: 'Авторизация прошла успешно!' });
   }).catch((err) => {
     // ошибка аутентификации
     throw new AuthError(err.message);
