@@ -13,7 +13,7 @@ const {
 userRouter.get('/users', getUser);
 userRouter.get('/users/:_id', celebrate({
   params: Joi.object().keys({
-    _id: Joi.string().alphanum().length(24),
+    _id: Joi.string().alphanum().length(24).hex(),
   }),
 }), getUserById);
 // userRouter.post('/users', createUser);
@@ -25,7 +25,9 @@ userRouter.patch('/users/me', celebrate({
 }), updateUserInfo);
 userRouter.patch('/users/me/avatar', celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string().required(),
+    avatar: Joi.string().required().pattern(
+      /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)/,
+    ),
 
   }),
 }), updateUserAvatar);

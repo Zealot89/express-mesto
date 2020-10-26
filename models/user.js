@@ -21,17 +21,14 @@ const userSchema = new mongoose.Schema({
   avatar: {
     type: String,
     required: true,
-
     default: 'https://img.joinfo.ua/i/2019/06/o/5cffa39f10702.jpg',
     minlength: 2,
-
     validate: {
       validator(link) {
         return /https?:\/\/(www\.)?[a-zA-Z0-9-@#$%:._=+~&*\\]{1,333}\.[0-9A-Za-z]{1,4}\b([a-zA-Z0-9-@#$%:._=//()+~&*\\]*)/.test(
           link,
         );
       },
-      message: (props) => `${props.value} ссылка не прошла валидацию.`,
     },
   },
   email: {
@@ -42,7 +39,6 @@ const userSchema = new mongoose.Schema({
       validator(email) {
         return validator.isEmail(email);
       },
-      message: (props) => `${props.value} почта не прошла валидацию.`,
     },
   },
   password: {
