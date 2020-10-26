@@ -47,9 +47,9 @@ const createUser = (req, res, next) => {
         email: newUser.email,
       });
     }).catch((error) => {
-      // if (error.name === 'MongoError' || error.code === 11000) {
-      //  throw new ConflictError('переданы некорректные данные в метод создания пользователя');
-      // }
+      if (error.name === 'MongoError' || error.code === 11000) {
+        throw new ConflictError('переданы некорректные данные в метод создания пользователя');
+      }
       throw new BadRequestError('переданы некорректные данные в метод создания пользователя');
     })
     .catch(next);
