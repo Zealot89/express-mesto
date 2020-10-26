@@ -84,7 +84,8 @@ function login(req, res, next) {
   }).catch((err) => {
     // ошибка аутентификации
     throw new AuthError(err.message);
-  }).catch(next);
+  })
+    .catch(next);
 }
 
 module.exports = {
